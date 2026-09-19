@@ -16,6 +16,12 @@
   </head>
   <body class="bg-white text-gray-900 antialiased">
     <div id="root"></div>
+
+    <!-- Aviso da demo: sem back-end, dados fictícios em memória. -->
+    <div id="demo-badge" style="position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;gap:10px;max-width:calc(100vw - 24px);padding:8px 14px;border-radius:9999px;background:#064E3B;color:#fff;font:500 13px/1.4 system-ui,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.25)">
+      <span>Demo sem back-end &middot; dados fict&iacute;cios &middot; login <b>admin / admin</b></span>
+      <button onclick="document.getElementById('demo-badge').remove()" aria-label="Fechar aviso" style="all:unset;cursor:pointer;padding:0 4px;opacity:.7">&times;</button>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

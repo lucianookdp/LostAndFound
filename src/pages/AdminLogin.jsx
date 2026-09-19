@@ -8,8 +8,8 @@ import secureImg from "../assets/undraw_security_0ubl.svg";
 const AdminLogin = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("admin");
+  const [password, setPassword] = useState("admin");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 

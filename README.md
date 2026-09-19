@@ -8,6 +8,18 @@ A web system for managing lost-and-found items on campus. Front-desk staff log f
 
 Pairs with the [lostandfound-backend](https://github.com/lucianookdp/lostandfound-backend) API.
 
+## Live demo
+
+**https://lucianookdp.github.io/LostAndFound/** — login `admin` / `admin`.
+
+The demo runs the real front-end with no back-end at all. `src/demo/backend.js`
+intercepts `fetch()` and answers the same routes the API used to answer, reading
+and writing in-memory arrays seeded from `src/demo/seed.js`. Everything stays in
+the browser, all records are fictional, and reloading the page resets the data.
+
+The pages, components and services are untouched: they still call `/api/items`,
+`/api/withdrawals` and so on exactly as they did against the real API.
+
 ## Features
 
 - Item intake and lookup, with filters
@@ -27,7 +39,9 @@ npm install
 npm run dev
 ```
 
-The app expects the [lostandfound-backend](https://github.com/lucianookdp/lostandfound-backend) API to be running; update the base URL in `src/services/authApi.js` if it's not on the default host.
+This runs the demo described above — no back-end needed. To point it at the real
+[lostandfound-backend](https://github.com/lucianookdp/lostandfound-backend) instead, drop the
+`import './demo/backend'` line from `src/main.jsx` and set the base URL in `src/services/`.
 
 ## License
 
