@@ -213,14 +213,16 @@ let idioma = salvo || (doNavegador.startsWith("pt") ? "pt" : "en");
 function estilos() {
   const s = document.createElement("style");
   s.textContent = `
-    /* Painel escuro: destaca-se da página sem cobrir nada dela. */
+    /* Painel grafite com acento esmeralda: lê-se na hora como algo que não
+       faz parte do sistema, e destaca-se da página sem cobrir nada dela. */
     #demo-tour {
-      position: fixed; z-index: 60; right: 20px; bottom: 20px; width: 368px;
+      position: fixed; z-index: 60; right: 20px; bottom: 20px; width: 380px;
       max-width: calc(100vw - 32px);
-      background: #064e3b; color: #fff;
-      border: 1px solid rgba(255,255,255,.12);
+      background: #16191d; color: #fff;
+      border: 1px solid rgba(255,255,255,.09);
+      border-top: 3px solid #10b981;
       border-radius: 18px;
-      box-shadow: 0 24px 60px rgba(2,44,34,.45), 0 0 0 1px rgba(6,95,70,.1);
+      box-shadow: 0 26px 64px rgba(0,0,0,.42), 0 0 0 1px rgba(16,185,129,.16);
       font: 400 13.5px/1.6 system-ui, sans-serif; overflow: hidden;
       animation: demo-tour-entra .3s cubic-bezier(.2,.9,.3,1.3);
     }
@@ -228,10 +230,10 @@ function estilos() {
       from { opacity: 0; transform: translateY(16px) scale(.96) }
     }
     /* pulso curto a cada passo, para o olho voltar ao painel */
-    #demo-tour.mudou { animation: demo-tour-chama .5s ease-out }
+    #demo-tour.mudou { animation: demo-tour-chama .6s ease-out }
     @keyframes demo-tour-chama {
-      0% { box-shadow: 0 24px 60px rgba(2,44,34,.45), 0 0 0 0 rgba(16,185,129,.5) }
-      100% { box-shadow: 0 24px 60px rgba(2,44,34,.45), 0 0 0 16px rgba(16,185,129,0) }
+      0% { box-shadow: 0 26px 64px rgba(0,0,0,.42), 0 0 0 0 rgba(16,185,129,.55) }
+      100% { box-shadow: 0 26px 64px rgba(0,0,0,.42), 0 0 0 18px rgba(16,185,129,0) }
     }
 
     #demo-tour header {
@@ -240,8 +242,8 @@ function estilos() {
     }
     #demo-tour header span {
       display: flex; align-items: center; gap: 7px;
-      font: 700 11px/1 system-ui, sans-serif; letter-spacing: .08em;
-      text-transform: uppercase; color: #6ee7b7;
+      font: 700 11px/1 system-ui, sans-serif; letter-spacing: .09em;
+      text-transform: uppercase; color: #34d399;
     }
     #demo-tour header span::before {
       content: ""; width: 7px; height: 7px; border-radius: 50%;
@@ -264,10 +266,10 @@ function estilos() {
     }
 
     #demo-tour .corpo { padding: 0 16px 14px }
-    #demo-tour h3 { margin: 0 0 7px; font: 700 17px/1.25 system-ui, sans-serif; color: #fff }
-    #demo-tour p { margin: 0; color: rgba(255,255,255,.82) }
+    #demo-tour h3 { margin: 0 0 7px; font: 700 18px/1.25 system-ui, sans-serif; color: #fff }
+    #demo-tour p { margin: 0; color: rgba(255,255,255,.76) }
 
-    #demo-tour .barra { height: 3px; background: rgba(255,255,255,.12); margin: 0 16px; border-radius: 9999px }
+    #demo-tour .barra { height: 3px; background: rgba(255,255,255,.1); margin: 0 16px; border-radius: 9999px }
     #demo-tour .barra i {
       display: block; height: 100%; border-radius: 9999px;
       background: linear-gradient(90deg, #34d399, #6ee7b7);
@@ -284,27 +286,34 @@ function estilos() {
       padding: 9px 18px; font: 600 13px/1 system-ui, sans-serif; text-align: center;
       transition: background .15s, color .15s, opacity .15s;
     }
-    #demo-tour .voltar {
+    #demo-tour .rodape button.voltar {
       grid-column: 1; border: 1px solid rgba(255,255,255,.25); color: rgba(255,255,255,.9);
     }
-    #demo-tour .voltar:hover:not([disabled]) { background: rgba(255,255,255,.12) }
-    #demo-tour .voltar[disabled] { opacity: .3; cursor: default }
-    #demo-tour .avancar {
-      grid-column: 3; background: #fff; color: #064e3b;
-      box-shadow: 0 4px 14px rgba(0,0,0,.2);
+    #demo-tour .rodape button.voltar:hover:not([disabled]) { background: rgba(255,255,255,.12) }
+    #demo-tour .rodape button.voltar[disabled] { opacity: .3; cursor: default }
+    #demo-tour .rodape button.avancar {
+      grid-column: 3; background: #10b981; color: #062e22;
+      box-shadow: 0 6px 18px rgba(16,185,129,.35);
     }
-    #demo-tour .avancar:hover { background: #d1fae5 }
+    #demo-tour .rodape button.avancar:hover { background: #34d399 }
 
     /* botão para (re)abrir o guia */
     #demo-tour-abrir {
       position: fixed; z-index: 60; right: 20px; bottom: 20px;
       display: flex; align-items: center; gap: 8px;
-      padding: 11px 20px; border-radius: 9999px; border: none; cursor: pointer;
-      background: #064e3b; color: #fff; font: 600 13px/1 system-ui, sans-serif;
-      box-shadow: 0 12px 30px rgba(2,44,34,.4);
-      animation: demo-tour-entra .3s ease-out;
+      padding: 12px 22px; border-radius: 9999px; border: none; cursor: pointer;
+      background: #16191d; color: #fff; font: 600 13px/1 system-ui, sans-serif;
+      border-top: 2px solid #10b981;
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      animation: demo-tour-entra .3s ease-out, demo-tour-aceno 4s ease-out 1s infinite;
     }
-    #demo-tour-abrir:hover { background: #047857 }
+    #demo-tour-abrir:hover { background: #22272c; animation: none }
+    /* aceno discreto de tempos em tempos, para o botão não sumir na página */
+    @keyframes demo-tour-aceno {
+      0%, 88% { box-shadow: 0 12px 30px rgba(0,0,0,.35), 0 0 0 0 rgba(16,185,129,.45) }
+      96% { box-shadow: 0 12px 30px rgba(0,0,0,.35), 0 0 0 14px rgba(16,185,129,0) }
+      100% { box-shadow: 0 12px 30px rgba(0,0,0,.35), 0 0 0 0 rgba(16,185,129,0) }
+    }
 
     /* alvo destacado: só contorno, nunca bloqueia clique */
     .demo-tour-alvo {
