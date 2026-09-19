@@ -1,32 +1,63 @@
-# Lost & Found - Campo Real
+# Lost & Found
 
-Capstone project (TCC) for a Software Engineering degree at Centro Universitário Campo Real.
+A web system for managing lost and found items in a school, university or any
+institution that receives objects left behind by the people who pass through it.
+Front-desk staff log found items, people look them up, and every claim is
+recorded with the details of who took what. Admins manage locations, reception
+points, staff accounts and reports.
 
-Built by [@lucianookdp](https://github.com/lucianookdp) — advisor: Prof. Enrique Augusto Da Roza ([@earoza](https://github.com/earoza)).
+Nothing in the system is tied to a specific institution: locations, reception
+points and staff are registered by the admin, so the same install serves a
+single campus or a network of buildings.
 
-A web system for managing lost-and-found items on campus. Front-desk staff log found items, students look up and claim their belongings, and every withdrawal is recorded with full details. Admins manage locations, staff accounts, and export reports.
+## About the project
 
-Pairs with the [lostandfound-backend](https://github.com/lucianookdp/lostandfound-backend) API.
+Capstone project (TCC) for a Software Engineering degree at Centro Universitário
+Campo Real.
+
+Built by [@lucianookdp](https://github.com/lucianookdp) — advisor: Prof. Enrique
+Augusto Da Roza ([@earoza](https://github.com/earoza)).
+
+The problem it was written for: the lost and found was kept in a spreadsheet,
+with no reliable record of who had claimed each item. The system replaces that
+with a registry where every claim is logged against the item, the person and the
+staff member who handed it over.
+
+This repository is the front-end. It was built against the
+[lostandfound-backend](https://github.com/lucianookdp/lostandfound-backend) API
+(Node.js + MySQL), which is no longer hosted.
 
 ## Live demo
 
 **https://lucianookdp.github.io/LostAndFound/** — login `admin` / `admin`.
 
-The demo runs the real front-end with no back-end at all. `src/demo/backend.js`
-intercepts `fetch()` and answers the same routes the API used to answer, reading
-and writing in-memory arrays seeded from `src/demo/seed.js`. Everything stays in
-the browser, all records are fictional, and reloading the page resets the data.
+The demo is illustrative. It is the same application, with the same screens and
+the same flows as the version delivered for the TCC, but two things differ from
+what actually ran in production:
 
-The pages, components and services are untouched: they still call `/api/items`,
-`/api/withdrawals` and so on exactly as they did against the real API.
+- **There is no back-end.** `src/demo/backend.js` intercepts `fetch()` and
+  answers the same routes the API answered, over in-memory arrays seeded from
+  `src/demo/seed.js`. Everything stays in the browser, every record is
+  fictional, and reloading the page resets the data. No real person's data is
+  in it.
+- **The public consult page has a refreshed design.** The identity is the one
+  from the original — same palette, same two sections, same priority accent —
+  but the layout and the motion were reworked. The administrative screens are
+  the original ones.
+
+The pages, components and services are otherwise untouched: they still call
+`/api/items`, `/api/withdrawals` and so on exactly as they did against the real
+API.
 
 ## Features
 
-- Item intake and lookup, with filters
-- Withdrawal flow with full record-keeping
+- Item intake and lookup, with filters by category, type, location and reception
+- Items split into priority (high value or personal documents) and common
+- Withdrawal flow with a per-item security question and full record-keeping
 - Role-based access (admin / front-desk staff)
 - Location and reception point management
-- Report generation and export
+- Dashboard with return rate, categories, areas and returns per month
+- Report generation and PDF export
 
 ## Stack
 
@@ -40,8 +71,9 @@ npm run dev
 ```
 
 This runs the demo described above — no back-end needed. To point it at the real
-[lostandfound-backend](https://github.com/lucianookdp/lostandfound-backend) instead, drop the
-`import './demo/backend'` line from `src/main.jsx` and set the base URL in `src/services/`.
+[lostandfound-backend](https://github.com/lucianookdp/lostandfound-backend)
+instead, drop the `import './demo/backend'` line from `src/main.jsx` and set the
+base URL in `src/services/`.
 
 ## License
 
