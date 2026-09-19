@@ -45,4 +45,4 @@ This runs the demo described above — no back-end needed. To point it at the re
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+All rights reserved — public for viewing and reference only. See [LICENCE](./LICENCE).
