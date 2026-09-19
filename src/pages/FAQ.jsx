@@ -33,15 +33,15 @@ const faqData = [
     questions: [
       {
         q: "Qual a diferença entre itens comuns e prioritários?",
-        a: "A diferença é apenas visual. Os itens prioritários possuem destaque na interface para facilitar sua identificação pelos funcionários, mas todos seguem o mesmo processo de segurança e validação.",
+        a: "Prioritário é o item de valor monetário alto ou o documento pessoal: celular, notebook, tablet, carteira, chave de carro, joia, CNH. Comum é o objeto do dia a dia, sem valor relevante: garrafa, caderno, guarda-chuva, peça de roupa. O tipo é escolhido no cadastro e define onde o item aparece na consulta pública.",
       },
       {
-        q: "Por que existe essa diferenciação visual?",
-        a: "A distinção serve apenas para organização e rápida identificação de itens mais importantes, como documentos e eletrônicos. No entanto, ambos os tipos de item têm o mesmo nível de segurança na retirada.",
+        q: "Por que existe essa diferenciação?",
+        a: "Itens de valor alto são os que mais geram procura e prejuízo para quem perdeu. Deixá-los separados no topo da consulta faz com que sejam encontrados e devolvidos mais rápido, e sinaliza para a recepção quais itens não devem ficar em local de fácil acesso. Note que o que pesa é o valor, não a categoria: um carregador comum e um pen drive são eletrônicos, mas entram como itens comuns.",
       },
       {
         q: "Como funciona a retirada de um item?",
-        a: "Independentemente da categoria, o funcionário deve verificar os dados fornecidos pelo dono, aplicar as perguntas de segurança e registrar a retirada no sistema. Isso garante rastreabilidade e segurança para todos os casos.",
+        a: "Independentemente do tipo, o funcionário verifica os dados do dono, aplica a pergunta de segurança cadastrada junto com o item e registra a retirada no sistema. A exigência é a mesma para comuns e prioritários: o que muda é o destaque na interface.",
       },
     ],
   },

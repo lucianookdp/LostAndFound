@@ -53,16 +53,20 @@ export const users = [
 ];
 
 // tipo: "prioritario" (exige pergunta de segurança na retirada) | "comum"
+// Prioritário: valor monetário alto ou documento pessoal — sai em destaque na
+// consulta pública. Comum: objeto do dia a dia, sem valor relevante.
 const itensBrutos = [
-  ["prioritario", "Carteira de couro marrom", "Acessórios", 1, 3, 2, "Quantos cartões tinha dentro?"],
-  ["prioritario", "Notebook Dell Inspiron", "Eletrônicos", 4, 1, 0, "Qual o adesivo na tampa?"],
-  ["prioritario", "Chave de carro com controle", "Acessórios", 6, 2, 1, "Qual a marca do carro?"],
-  ["prioritario", "Fone de ouvido sem fio", "Eletrônicos", 1, 3, 4, "Qual a cor do estojo?"],
-  ["prioritario", "Óculos de grau com estojo", "Acessórios", 5, 1, 6, "Qual a cor da armação?"],
-  ["prioritario", "Celular Motorola", "Eletrônicos", 2, 1, 7, "Qual a imagem de bloqueio?"],
-  ["prioritario", "Documento de identidade", "Documentos", 7, 1, 9, "Qual o ano de emissão?"],
-  ["prioritario", "Aliança dourada", "Acessórios", 3, 2, 11, "Tem gravação por dentro? Qual?"],
+  ["prioritario", "iPhone 13 preto", "Eletrônicos", 4, 1, 0, "Qual a imagem da tela de bloqueio?"],
+  ["prioritario", "Notebook Dell Inspiron", "Eletrônicos", 4, 1, 1, "Qual o adesivo na tampa?"],
+  ["prioritario", "Carteira de couro com documentos", "Acessórios", 1, 3, 2, "Quantos cartões tinha dentro?"],
+  ["prioritario", "Chave de carro com controle", "Acessórios", 6, 2, 3, "Qual a marca do carro?"],
+  ["prioritario", "Fone de ouvido sem fio com estojo", "Eletrônicos", 1, 3, 4, "Qual a cor do estojo?"],
+  ["prioritario", "Tablet Samsung Galaxy Tab", "Eletrônicos", 7, 1, 6, "Qual o papel de parede?"],
+  ["prioritario", "Smartwatch com pulseira preta", "Eletrônicos", 3, 2, 7, "Qual a marca do relógio?"],
+  ["prioritario", "Óculos de grau com armação de titânio", "Acessórios", 5, 1, 9, "Qual a cor da armação?"],
+  ["prioritario", "Aliança de ouro", "Acessórios", 3, 2, 11, "Tem gravação por dentro? Qual?"],
   ["prioritario", "Cartão de crédito", "Documentos", 2, 2, 12, "Qual o banco emissor?"],
+  ["prioritario", "Carteira de motorista (CNH)", "Documentos", 8, 1, 15, "Qual a categoria da habilitação?"],
   ["comum", "Garrafa térmica azul", "Outros", 3, 2, 1, "Tem adesivos? Quais?"],
   ["comum", "Caderno universitário 10 matérias", "Materiais Acadêmicos", 1, 3, 2, "Qual o nome na capa?"],
   ["comum", "Guarda-chuva preto", "Outros", 8, 1, 3, "Automático ou manual?"],
@@ -75,6 +79,7 @@ const itensBrutos = [
   ["comum", "Squeeze rosa", "Outros", 3, 2, 11, "Tem nome escrito?"],
   ["comum", "Livro de Cálculo I", "Materiais Acadêmicos", 1, 3, 13, "Qual a edição?"],
   ["comum", "Carregador de celular", "Eletrônicos", 4, 1, 14, "Qual o tipo de conector?"],
+  ["comum", "Caneca de porcelana branca", "Outros", 2, 2, 15, "Tem alguma estampa?"],
   ["comum", "Bolsa transversal bege", "Bolsas e Mochilas", 2, 2, 16, "O que tem dentro?"],
   ["comum", "Cachecol vinho", "Vestuário", 8, 1, 18, "É de lã ou tricô?"],
   ["comum", "Pen drive 32GB", "Eletrônicos", 4, 1, 21, "Qual a cor?"],
@@ -102,7 +107,7 @@ const retiradasBrutas = [
   ["Tablet Samsung", "Eletrônicos", "prioritario", "Marina Alves Costa", "34567890123", "(42) 99823-5566", "academico", "20241122", "Medicina Veterinária", "recepcao.b", 15],
   ["Agasalho azul", "Vestuário", "comum", "Rafael Pires Nunes", "45678901234", "(42) 99834-7788", "externo", null, null, "recepcao.b", 23],
   ["Apostila de Anatomia", "Materiais Acadêmicos", "comum", "Juliana Ferreira", "56789012345", "(42) 99845-9900", "academico", "20230456", "Enfermagem", "recepcao.a", 31],
-  ["Relógio digital", "Acessórios", "prioritario", "Thiago Barbosa", "67890123456", "(42) 99856-1122", "academico", "20228877", "Administração", "recepcao.a", 44],
+  ["Smartwatch com pulseira azul", "Eletrônicos", "prioritario", "Thiago Barbosa", "67890123456", "(42) 99856-1122", "academico", "20228877", "Administração", "recepcao.a", 44],
   ["Mochila cinza", "Bolsas e Mochilas", "comum", "Patrícia Gomes", "78901234567", "(42) 99867-3344", "externo", null, null, "recepcao.b", 58],
   ["Carregador de notebook", "Eletrônicos", "comum", "Lucas Andrade", "89012345678", "(42) 99878-5566", "academico", "20240033", "Sistemas de Informação", "recepcao.b", 72],
   ["CNH", "Documentos", "prioritario", "Fernanda Ribeiro", "90123456789", "(42) 99889-7788", "externo", null, null, "recepcao.a", 95],

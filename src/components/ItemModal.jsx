@@ -126,14 +126,21 @@ const ItemModal = ({ isOpen, onClose, onSave, item, viewOnly = false }) => {
             {renderField(
               "Tipo do item",
               tipo,
-              <select
-                value={tipo}
-                onChange={(e) => setTipo(e.target.value)}
-                className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500"
-              >
-                <option value="prioritario">Prioritário</option>
-                <option value="comum">Comum</option>
-              </select>
+              <>
+                <select
+                  value={tipo}
+                  onChange={(e) => setTipo(e.target.value)}
+                  className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500"
+                >
+                  <option value="prioritario">Prioritário</option>
+                  <option value="comum">Comum</option>
+                </select>
+                <p className="mt-1 text-xs text-gray-500">
+                  {tipo === "prioritario"
+                    ? "Valor alto ou documento pessoal: celular, notebook, carteira, chave de carro, joia."
+                    : "Objeto do dia a dia: garrafa, caderno, guarda-chuva, roupa, material escolar."}
+                </p>
+              </>
             )}
 
             {renderField(

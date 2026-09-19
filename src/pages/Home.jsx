@@ -94,7 +94,7 @@ const Home = () => {
               <div>
                 <h2 className="text-xl font-semibold">Itens Prioritários</h2>
                 <p className="text-sm text-emerald-100">
-                  Itens de maior valor que exigem verificação adicional na retirada.
+                  Itens de valor alto e documentos pessoais, em destaque para serem encontrados mais rápido.
                 </p>
               </div>
             </div>
