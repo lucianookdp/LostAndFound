@@ -234,6 +234,90 @@ const UserCreate = () => {
     }
   }
 
+  const papel = (role) =>
+    role === "admin" ? "Administrador" : role === "func" ? "Funcionário" : "—";
+
+  // ─────────────────────────────────────────────
+  // AÇÕES (mesmas na tabela e nos cards)
+  const renderAcoes = (u, alinhamento) =>
+    u.role === "admin" ? (
+      <div className="text-gray-400 italic text-sm">Protegido</div>
+    ) : (
+      <div className={`flex items-center gap-4 text-lg ${alinhamento}`}>
+        <button
+          title="Visualizar usuário"
+          onClick={() => {
+            setSelectedUser(u);
+            setModalType("view");
+          }}
+          className="text-gray-600 hover:text-emerald-600"
+        >
+          <FiEye />
+        </button>
+        <button
+          title="Editar dados"
+          onClick={() => {
+            setSelectedUser(u);
+            setModalType("edit");
+          }}
+          className="text-gray-600 hover:text-yellow-500"
+        >
+          <FiEdit />
+        </button>
+        <button
+          title="Alterar senha"
+          onClick={() => {
+            setSelectedUser(u);
+            setModalType("password");
+          }}
+          className="text-gray-600 hover:text-emerald-700"
+        >
+          <FiKey />
+        </button>
+        <button
+          title="Excluir usuário"
+          onClick={() => handleDelete(u.id)}
+          className="text-gray-600 hover:text-red-600"
+        >
+          <FiTrash2 />
+        </button>
+      </div>
+    );
+
+  // ─────────────────────────────────────────────
+  // CARD (abaixo de md: na tabela as ações ficariam fora da tela)
+  const renderCard = (u) => (
+    <div
+      key={u.id}
+      className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="font-semibold text-gray-900 truncate">{u.nome || "—"}</p>
+          <p className="text-sm text-gray-500 truncate">{u.username}</p>
+        </div>
+        <span className="shrink-0 rounded px-2 py-1 text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-100">
+          {papel(u.role)}
+        </span>
+      </div>
+
+      <dl className="mt-3 space-y-1 text-sm text-gray-600">
+        <div>
+          <dt className="inline text-gray-500">CPF: </dt>
+          <dd className="inline">{u.cpf ? mascararCPF(u.cpf) : "—"}</dd>
+        </div>
+        <div>
+          <dt className="inline text-gray-500">Recepção: </dt>
+          <dd className="inline">{u.reception_name || "—"}</dd>
+        </div>
+      </dl>
+
+      <div className="mt-3 pt-3 border-t border-gray-100 flex justify-end">
+        {renderAcoes(u, "justify-end")}
+      </div>
+    </div>
+  );
+
   const paginate = (data, page) => {
     const start = (page - 1) * ITEMS_PER_PAGE;
     return data.slice(start, start + ITEMS_PER_PAGE);
@@ -280,7 +364,8 @@ const UserCreate = () => {
             </button>
           </div>
 
-          <div className="overflow-x-auto">
+          {/* tabela: md para cima */}
+          <div className="hidden md:block overflow-x-auto">
             <table className="min-w-full text-sm">
               <thead className="bg-gray-50 text-gray-700 font-semibold uppercase tracking-wide">
                 <tr>
@@ -317,63 +402,28 @@ const UserCreate = () => {
                         {u.cpf ? mascararCPF(u.cpf) : "—"}
                       </td>
                       <td className="px-5 py-3">{u.reception_name || "—"}</td>
-                      <td className="px-5 py-3">
-                        {u.role === "admin"
-                          ? "Administrador"
-                          : u.role === "func"
-                          ? "Funcionário"
-                          : "—"}
-                      </td>
+                      <td className="px-5 py-3">{papel(u.role)}</td>
                       <td className="px-5 py-3 text-center">
-                        {u.role === "admin" ? (
-                          <div className="text-gray-400 italic">Protegido</div>
-                        ) : (
-                          <div className="flex items-center justify-center gap-4 text-lg">
-                            <button
-                              title="Visualizar usuário"
-                              onClick={() => {
-                                setSelectedUser(u);
-                                setModalType("view");
-                              }}
-                              className="text-gray-600 hover:text-emerald-600"
-                            >
-                              <FiEye />
-                            </button>
-                            <button
-                              title="Editar dados"
-                              onClick={() => {
-                                setSelectedUser(u);
-                                setModalType("edit");
-                              }}
-                              className="text-gray-600 hover:text-yellow-500"
-                            >
-                              <FiEdit />
-                            </button>
-                            <button
-                              title="Alterar senha"
-                              onClick={() => {
-                                setSelectedUser(u);
-                                setModalType("password");
-                              }}
-                              className="text-gray-600 hover:text-emerald-700"
-                            >
-                              <FiKey />
-                            </button>
-                            <button
-                              title="Excluir usuário"
-                              onClick={() => handleDelete(u.id)}
-                              className="text-gray-600 hover:text-red-600"
-                            >
-                              <FiTrash2 />
-                            </button>
-                          </div>
-                        )}
+                        {renderAcoes(u, "justify-center")}
                       </td>
                     </tr>
                   ))
                 )}
               </tbody>
             </table>
+          </div>
+
+          {/* cards: abaixo de md */}
+          <div className="md:hidden p-4 space-y-3">
+            {loading ? (
+              <p className="py-6 text-center text-gray-500">Carregando...</p>
+            ) : users.length === 0 ? (
+              <p className="py-6 text-center text-gray-500">
+                Nenhum usuário encontrado.
+              </p>
+            ) : (
+              paginate(users, page).map(renderCard)
+            )}
           </div>
 
           {/* Paginação */}

@@ -129,19 +129,51 @@ const AdminItens = () => {
   };
 
   // ─────────────────────────────────────────────
-  // LINHA DA TABELA
+  // AÇÕES (mesmas na tabela e nos cards)
+  const renderAcoes = (item) => (
+    <>
+      <button
+        onClick={() => openModal(item, true)}
+        title="Visualizar"
+        className="text-gray-600 hover:text-blue-600"
+      >
+        <FiEye />
+      </button>
+      {(user?.role === "admin" ||
+        (user?.role === "func" && item.reception_id === user?.reception_id)) && (
+        <>
+          <button
+            onClick={() => openModal(item, false)}
+            title="Editar"
+            className="text-gray-600 hover:text-yellow-500"
+          >
+            <FiEdit />
+          </button>
+          <button
+            onClick={() => openWithdrawFor(item)}
+            title="Retirar este item"
+            className="text-gray-600 hover:text-emerald-600"
+          >
+            <FiCornerUpRight />
+          </button>
+        </>
+      )}
+    </>
+  );
+
+  const tipoBadge = (tipo) =>
+    `inline-block rounded px-2 py-1 text-xs font-medium capitalize ${
+      tipo === "prioritario"
+        ? "bg-red-100 text-red-700"
+        : "bg-green-100 text-green-700"
+    }`;
+
+  // ─────────────────────────────────────────────
+  // LINHA DA TABELA (md para cima)
   const renderRow = (item) => (
     <tr key={item.id} className="border-t hover:bg-gray-50 transition">
       <td className="px-2 sm:px-4 py-3">
-        <span
-          className={`inline-block rounded px-2 py-1 text-xs font-medium capitalize ${
-            item.tipo === "prioritario"
-              ? "bg-red-100 text-red-700"
-              : "bg-green-100 text-green-700"
-          }`}
-        >
-          {item.tipo}
-        </span>
+        <span className={tipoBadge(item.tipo)}>{item.tipo}</span>
       </td>
       <td className="px-2 sm:px-4 py-3">{item.categoria || "—"}</td>
       <td className="px-2 sm:px-4 py-3 font-medium">{item.nome}</td>
@@ -152,35 +184,58 @@ const AdminItens = () => {
       <td className="px-2 sm:px-4 py-3">{item.reception_name || "—"}</td>
       <td className="px-2 sm:px-4 py-3">
         <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-base">
-          <button
-            onClick={() => openModal(item, true)}
-            title="Visualizar"
-            className="text-gray-600 hover:text-blue-600"
-          >
-            <FiEye />
-          </button>
-          {(user?.role === "admin" ||
-            (user?.role === "func" && item.reception_id === user?.reception_id)) && (
-            <>
-              <button
-                onClick={() => openModal(item, false)}
-                title="Editar"
-                className="text-gray-600 hover:text-yellow-500"
-              >
-                <FiEdit />
-              </button>
-              <button
-                onClick={() => openWithdrawFor(item)}
-                title="Retirar este item"
-                className="text-gray-600 hover:text-emerald-600"
-              >
-                <FiCornerUpRight />
-              </button>
-            </>
-          )}
+          {renderAcoes(item)}
         </div>
       </td>
     </tr>
+  );
+
+  // ─────────────────────────────────────────────
+  // CARD (abaixo de md: na tabela as ações ficariam fora da tela)
+  const renderCard = (item) => (
+    <div
+      key={item.id}
+      className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
+    >
+      <div className="flex items-start justify-between gap-3">
+        <p className="font-semibold text-gray-900 leading-snug">{item.nome}</p>
+        <span className={`shrink-0 ${tipoBadge(item.tipo)}`}>{item.tipo}</span>
+      </div>
+
+      <dl className="mt-3 space-y-1 text-sm text-gray-600">
+        <div>
+          <dt className="inline text-gray-500">Categoria: </dt>
+          <dd className="inline">{item.categoria || "—"}</dd>
+        </div>
+        <div>
+          <dt className="inline text-gray-500">Local: </dt>
+          <dd className="inline">{item.location_name || "—"}</dd>
+        </div>
+        <div>
+          <dt className="inline text-gray-500">Recepção: </dt>
+          <dd className="inline">{item.reception_name || "—"}</dd>
+        </div>
+        <div>
+          <dt className="inline text-gray-500">Data: </dt>
+          <dd className="inline">
+            {item.data ? new Date(item.data).toLocaleDateString() : "—"}
+          </dd>
+        </div>
+      </dl>
+
+      <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-end gap-5 text-lg">
+        {renderAcoes(item)}
+      </div>
+    </div>
+  );
+
+  const grupoMobile = (titulo, total, pagina) => (
+    <>
+      <p className="px-1 pt-2 text-sm font-semibold text-gray-700">
+        {titulo} ({total})
+      </p>
+      {pagina.map(renderCard)}
+    </>
   );
 
   // ─────────────────────────────────────────────
@@ -210,7 +265,7 @@ const AdminItens = () => {
         </div>
       )}
 
-      <main className="flex-1 w-full max-w-6xl mx-auto py-6 px-2 sm:px-4 lg:px-6">
+      <main className="flex-1 w-full max-w-6xl mx-auto py-6 px-3 sm:px-4 lg:px-6">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
             Gerenciar Itens
@@ -226,7 +281,8 @@ const AdminItens = () => {
 
         <ItemsFilter onFilterChange={setFilters} />
 
-        <div className="bg-white shadow-md rounded-xl overflow-x-auto border border-gray-200">
+        {/* tabela: md para cima */}
+        <div className="hidden md:block bg-white shadow-md rounded-xl overflow-x-auto border border-gray-200">
           <table className="min-w-full text-xs sm:text-sm">
             <thead className="bg-gray-100 text-gray-700 font-medium">
               <tr>
@@ -282,6 +338,28 @@ const AdminItens = () => {
               )}
             </tbody>
           </table>
+        </div>
+
+        {/* cards: abaixo de md */}
+        <div className="md:hidden space-y-3">
+          {loading ? (
+            <p className="py-8 text-center text-gray-500">Carregando...</p>
+          ) : items.length === 0 ? (
+            <p className="py-10 text-center text-gray-500">
+              Nenhum item cadastrado.
+            </p>
+          ) : user?.role === "admin" ? (
+            paginate(items, pageAdmin).map(renderCard)
+          ) : (
+            <>
+              {grupoMobile("Seus itens", myItems.length, paginate(myItems, pageMy))}
+              {grupoMobile(
+                "Outros itens",
+                otherItems.length,
+                paginate(otherItems, pageOther)
+              )}
+            </>
+          )}
         </div>
       </main>
 

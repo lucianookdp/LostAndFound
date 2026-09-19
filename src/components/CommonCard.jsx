@@ -1,31 +1,40 @@
 // ── CommonCard.jsx
-import { FiMapPin, FiArrowRight } from "react-icons/fi";
-
 export default function CommonCard({ item, onView }) {
   return (
-    <button
-      onClick={onView}
-      className="group h-full w-full text-left bg-white rounded-2xl border border-gray-200/80 shadow-sm hover:shadow-xl hover:border-emerald-300 hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden"
-    >
-      <div className="p-5 flex-1 flex flex-col gap-3">
-        <span className="self-start px-2.5 py-1 rounded-lg text-[11px] font-semibold uppercase tracking-wide bg-emerald-50 text-emerald-700 border border-emerald-100">
-          {item?.categoria || "Sem categoria"}
-        </span>
-
-        <h3 className="text-base font-semibold text-gray-900 leading-snug group-hover:text-emerald-800 transition-colors">
+    <div className="bg-white rounded-2xl shadow-md border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+      {/* Conteúdo */}
+      <div className="p-6 flex-1 flex flex-col justify-between text-center">
+        {/* Nome do item */}
+        <h3 className="text-lg font-semibold text-gray-900 mb-3 leading-snug">
           {item?.nome || "—"}
         </h3>
 
-        <p className="mt-auto flex items-center gap-1.5 text-sm text-gray-500">
-          <FiMapPin className="shrink-0 text-gray-400" />
-          <span className="truncate">{item?.location_name || "—"}</span>
-        </p>
+        {/* Categoria */}
+        <div className="text-sm text-gray-600 mb-2">
+          <span className="block text-gray-500">Categoria:</span>
+          <span className="text-gray-800 font-medium">
+            {item?.categoria || "—"}
+          </span>
+        </div>
+
+        {/* Local encontrado */}
+        <div className="text-sm text-gray-600">
+          <span className="block text-gray-500">Local encontrado:</span>
+          <span className="text-gray-800 font-medium">
+            {item?.location_name || "—"}
+          </span>
+        </div>
       </div>
 
-      <div className="px-5 py-3 border-t border-gray-100 bg-gray-50/70 flex items-center justify-between text-sm font-semibold text-emerald-700">
-        Ver detalhes
-        <FiArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
+      {/* Botão de ação */}
+      <div className="border-t border-gray-100 bg-gray-50 p-4">
+        <button
+          onClick={onView}
+          className="w-full py-2.5 text-sm font-semibold rounded-lg bg-emerald-700 text-white hover:bg-emerald-800 active:scale-[0.98] transition-all"
+        >
+          Ver detalhes
+        </button>
       </div>
-    </button>
+    </div>
   );
 }

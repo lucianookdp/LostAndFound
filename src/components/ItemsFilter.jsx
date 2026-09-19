@@ -49,7 +49,7 @@ export default function ItemsFilter({ onFilterChange }) {
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-3 bg-white border border-gray-200/80 rounded-2xl p-4 sm:p-5 shadow-lg shadow-emerald-900/5">
+    <div className="flex flex-wrap items-center gap-4 bg-white border border-emerald-300 rounded-2xl p-5 shadow-md">
       {/* Categoria */}
       <select
         value={category}
