@@ -89,12 +89,12 @@ const passos = [
     pt: {
       titulo: "Acesso da equipe",
       texto:
-        "O resto do sistema é interno. As credenciais da demo já vêm preenchidas (admin / admin). Clique em Entrar, ou em Próximo que eu entro por você.",
+        "O resto do sistema é interno. Aqui você não digita nada: escolhe um perfil e entra. Administrador vê o sistema todo; funcionário vê só a parte dele. Clique em um dos dois, ou em Próximo que eu entro como administrador.",
     },
     en: {
       titulo: "Staff access",
       texto:
-        "The rest of the system is internal. The demo credentials are already filled in (admin / admin). Click Entrar, or click Next and I will sign in for you.",
+        "The rest of the system is internal. There is nothing to type here: you pick a profile and go in. Admin sees the whole system; staff sees only their own part. Click either one, or click Next and I will sign in as admin.",
     },
     alvo: () => document.querySelector("form"),
   },
@@ -177,12 +177,12 @@ const passos = [
     pt: {
       titulo: "Usuários e permissões",
       texto:
-        "Dois papéis: administrador, que vê tudo, e funcionário, que cuida dos itens da recepção dele. Experimente sair e entrar como recepcao.a / demo para ver o sistema com menos permissões.",
+        "Dois papéis: administrador, que vê tudo, e funcionário, que cuida apenas dos itens da recepção dele. Saia e entre pelo botão Funcionário para ver o sistema com menos permissões: o menu encolhe e estas telas somem.",
     },
     en: {
       titulo: "Users and permissions",
       texto:
-        "Two roles: admin, who sees everything, and staff, who handle the items of their own front desk. Try signing out and back in as recepcao.a / demo to see the system with fewer permissions.",
+        "Two roles: admin, who sees everything, and staff, who only handle the items of their own front desk. Sign out and come back through the Funcionário button to see the system with fewer permissions: the menu shrinks and these screens disappear.",
     },
     alvo: () => secaoDe(porTexto("h2", "Funcionários")),
   },

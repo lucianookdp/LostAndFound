@@ -5,42 +5,44 @@ import { FiEye, FiEyeOff, FiArrowLeft, FiAlertCircle } from "react-icons/fi";
 import { login, me } from "../services/authApi";
 import secureImg from "../assets/undraw_security_0ubl.svg";
 
+// Na demo ninguém digita credenciais: escolhe-se um perfil e entra.
+const PERFIS = [
+  {
+    chave: "admin",
+    rotulo: "Entrar como administrador",
+    resumo: "Acesso completo: painel, relatórios, locais e usuários.",
+    username: "admin",
+    password: "admin",
+  },
+  {
+    chave: "func",
+    rotulo: "Entrar como funcionário",
+    resumo: "Recepção Bloco A: só os itens e o FAQ.",
+    username: "recepcao.a",
+    password: "demo",
+  },
+];
+
 const AdminLogin = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [username, setUsername] = useState("admin");
-  const [password, setPassword] = useState("admin");
+  const [perfil, setPerfil] = useState(PERFIS[0]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const username = perfil.username;
+  const password = perfil.password;
+
+  const entrar = async (escolhido) => {
+    setPerfil(escolhido);
     setError("");
-
-    if (!username.trim() || !password.trim()) {
-      setError("Por favor, preencha todos os campos.");
-      return;
-    }
-
-    if (username.length > 30) {
-      setError("O usuário não pode ultrapassar 30 caracteres.");
-      return;
-    }
-
-    if (password.length > 50) {
-      setError("A senha não pode ultrapassar 50 caracteres.");
-      return;
-    }
-
-    if (!/^[a-zA-Z0-9._]+$/.test(username)) {
-      setError("O usuário contém caracteres inválidos.");
-      return;
-    }
-
     setLoading(true);
 
     try {
-      await login({ username: username.trim(), password });
+      await login({
+        username: escolhido.username,
+        password: escolhido.password,
+      });
 
       const who = await me();
       const role = who?.user?.role || "func";
@@ -55,6 +57,11 @@ const AdminLogin = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    entrar(perfil);
   };
 
   return (
@@ -98,9 +105,9 @@ const AdminLogin = () => {
                 type="text"
                 maxLength={30}
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
                 placeholder="Digite seu usuário"
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#10B981] outline-none"
+                readOnly
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#10B981] outline-none cursor-default"
                 required
               />
             </div>
@@ -119,9 +126,9 @@ const AdminLogin = () => {
                   type={showPassword ? "text" : "password"}
                   maxLength={50}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Digite sua senha"
-                  className="w-full px-4 py-3 pr-11 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#10B981] outline-none"
+                  readOnly
+                  className="w-full px-4 py-3 pr-11 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#10B981] outline-none cursor-default"
                   required
                 />
                 <button
@@ -134,18 +141,37 @@ const AdminLogin = () => {
               </div>
             </div>
 
-            {/* botão entrar */}
-            <button
-              type="submit"
-              disabled={loading}
-              className={`w-full bg-[#10B981] text-white font-semibold py-3 rounded-lg transition text-lg shadow-md ${
-                loading
-                  ? "opacity-60 cursor-not-allowed"
-                  : "hover:bg-emerald-600 hover:shadow-lg"
-              }`}
-            >
-              {loading ? "Entrando..." : "Entrar"}
-            </button>
+            {/* um botão por perfil: nada para digitar */}
+            <div className="space-y-3">
+              {PERFIS.map((p, i) => (
+                <button
+                  key={p.chave}
+                  type="button"
+                  onClick={() => entrar(p)}
+                  disabled={loading}
+                  className={`w-full py-3 px-4 rounded-lg font-semibold transition shadow-md text-left ${
+                    loading ? "opacity-60 cursor-not-allowed" : "hover:shadow-lg"
+                  } ${
+                    i === 0
+                      ? "bg-[#10B981] text-white hover:bg-emerald-600"
+                      : "bg-white text-[#065F46] border border-emerald-200 hover:bg-emerald-50"
+                  }`}
+                >
+                  <span className="block text-base">
+                    {loading && perfil.chave === p.chave
+                      ? "Entrando..."
+                      : p.rotulo}
+                  </span>
+                  <span
+                    className={`block text-xs font-normal mt-0.5 ${
+                      i === 0 ? "text-emerald-50" : "text-gray-500"
+                    }`}
+                  >
+                    {p.resumo}
+                  </span>
+                </button>
+              ))}
+            </div>
           </form>
         </div>
       </div>
