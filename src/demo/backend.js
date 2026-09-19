@@ -8,6 +8,7 @@
 
 import * as seed from "./seed";
 import { relatorioPdf } from "./pdf";
+import { iniciarTour } from "./tour";
 
 const db = {
   items: structuredClone(seed.items),
@@ -351,3 +352,10 @@ window.fetch = async (input, init = {}) => {
 
   return fetchOriginal(input, init);
 };
+
+// guia das telas (também só existe na demo)
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", iniciarTour);
+} else {
+  iniciarTour();
+}
