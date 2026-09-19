@@ -15,7 +15,7 @@ single campus or a network of buildings.
 Capstone project (TCC) for a Software Engineering degree at Centro Universitário
 Campo Real.
 
-Built by [@lucianookdp](https://github.com/lucianookdp) — advisor: Prof. Enrique
+Built by [@lucianookdp](https://github.com/lucianookdp). Advisor: Prof. Enrique
 Augusto Da Roza ([@earoza](https://github.com/earoza)).
 
 The problem it was written for: the lost and found was kept in a spreadsheet,
@@ -29,21 +29,20 @@ This repository is the front-end. It was built against the
 
 ## Live demo
 
-**https://lucianookdp.github.io/LostAndFound/** — login `admin` / `admin`.
+**https://lucianookdp.github.io/LostAndFound/**, login `admin` / `admin`.
 
-The demo is illustrative. It is the same application, with the same screens and
-the same flows as the version delivered for the TCC, but two things differ from
-what actually ran in production:
+The demo is illustrative. The screens, the layout and the flows are the ones
+delivered for the TCC, and two things are not from the original:
 
 - **There is no back-end.** `src/demo/backend.js` intercepts `fetch()` and
   answers the same routes the API answered, over in-memory arrays seeded from
   `src/demo/seed.js`. Everything stays in the browser, every record is
   fictional, and reloading the page resets the data. No real person's data is
   in it.
-- **The public consult page has a refreshed design.** The identity is the one
-  from the original — same palette, same two sections, same priority accent —
-  but the layout and the motion were reworked. The administrative screens are
-  the original ones.
+- **There is a guide.** `src/demo/tour.js` walks a visitor through the eleven
+  screens, in Portuguese or English. It never blocks the page and can be closed
+  at any point. It lives outside the application, imports nothing from it, and
+  no screen had markup added for it.
 
 The pages, components and services are otherwise untouched: they still call
 `/api/items`, `/api/withdrawals` and so on exactly as they did against the real
@@ -70,11 +69,11 @@ npm install
 npm run dev
 ```
 
-This runs the demo described above — no back-end needed. To point it at the real
+This runs the demo described above, with no back-end needed. To point it at the real
 [lostandfound-backend](https://github.com/lucianookdp/lostandfound-backend)
 instead, drop the `import './demo/backend'` line from `src/main.jsx` and set the
 base URL in `src/services/`.
 
 ## License
 
-All rights reserved — public for viewing and reference only. See [LICENCE](./LICENCE).
+All rights reserved. Public for viewing and reference only. See [LICENCE](./LICENCE).
